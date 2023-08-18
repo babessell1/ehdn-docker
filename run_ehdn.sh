@@ -29,7 +29,7 @@ process_file() {
     samtools index -@ 2 "$cram"
 
     # run expansionhunter denovo
-    /user/local/bin/ExpansionHunterDenovo-v0.9.0-linux_x86_64/bin/ExpansionHunterDenovo profile \
+    /usr/local/bin/ExpansionHunterDenovo-v0.9.0-linux_x86_64/bin/ExpansionHunterDenovo profile \
         --reads "$cram" \
         --reference "$fasta" \
         --output-prefix output/"$bname" \
