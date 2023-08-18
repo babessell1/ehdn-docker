@@ -52,6 +52,9 @@ cp "${ro_faidx_dir}/${bname_fa}.fa.fai" "${ro_fa_dir}/${bname_fa}.fa.fai"
 mkdir -p output
 mkdir -p out
 
+ls
+ls ./*
+
 # Run the script in parallel for both cram1 and cram2
 (
     process_file "$cram1" "$fasta"
