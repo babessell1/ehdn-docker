@@ -6,8 +6,6 @@ FROM ubuntu:22.04
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
-    unzip \
-    tar \
     git \
     build-essential \
     samtools \
@@ -18,6 +16,7 @@ WORKDIR /usr/local/bin
 RUN wget https://github.com/Illumina/ExpansionHunterDenovo/releases/download/v0.9.0/ExpansionHunterDenovo-v0.9.0-linux_x86_64.tar.gz
 
 RUN tar -xvzf ExpansionHunterDenovo-v0.9.0-linux_x86_64.tar.gz
+RUN chmod -R u+rwx,g+rwx,o+rwx ExpansionHunterDenovo-v0.9.0-linux_x86_64
 
 # Copy your application code into the container
 COPY run_ehdn.sh .
