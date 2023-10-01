@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     samtools \
     parallel \
+    python3.8 \
     python3-pip
 
 WORKDIR /usr/local/bin
