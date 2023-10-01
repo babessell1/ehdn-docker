@@ -19,6 +19,10 @@ RUN wget https://github.com/Illumina/ExpansionHunterDenovo/releases/download/v0.
 RUN tar -xvzf ExpansionHunterDenovo-v0.9.0-linux_x86_64.tar.gz
 RUN chmod -R u+rwx,g+rwx,o+rwx ExpansionHunterDenovo-v0.9.0-linux_x86_64
 RUN git clone https://github.com/rashidalabri/ExpansionHunterDenovo-LRDN.git
+
+# Remove hash lines and trailing slashes from requirements.txt
+RUN sed -i '/--hash=.*$/d; s/\\$//' ExpansionHunterDenovo-LRDN/requirements.txt
+
 RUN pip install -r ExpansionHunterDenovo-LRDN/requirements.txt
 RUN chmod -R u+rwx,g+rwx,o+rwx ExpansionHunterDenovo-LRDN
 
