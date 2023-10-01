@@ -10,10 +10,12 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     samtools \
     parallel \
-    python3.8 \
     python3-pip
 
 WORKDIR /usr/local/bin
+
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt update && apt install -y python3.8
 
 RUN wget https://github.com/Illumina/ExpansionHunterDenovo/releases/download/v0.9.0/ExpansionHunterDenovo-v0.9.0-linux_x86_64.tar.gz
 
