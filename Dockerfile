@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     samtools \
     parallel \
-    python3-pip
+    python3-pip \
+    software-properties-common  # Install software-properties-common
 
 WORKDIR /usr/local/bin
 
