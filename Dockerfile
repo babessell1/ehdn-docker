@@ -11,13 +11,14 @@ RUN apt-get update && apt-get install -y \
     samtools \
     parallel \
     python3-pip \
-    software-properties-common  # Install software-properties-common
+    python
+
+RUN apt-get update && apt-get install -y software-properties-common gcc && \
+    add-apt-repository -y ppa:deadsnakes/ppa
+
+RUN apt-get update && apt-get install -y python3.8 python3-distutils python3-pip python3-apt
 
 WORKDIR /usr/local/bin
-
-RUN add-apt-repository ppa:deadsnakes/ppa && \
-    apt update && \
-    apt install -y python3.8
 
 RUN wget https://github.com/Illumina/ExpansionHunterDenovo/releases/download/v0.9.0/ExpansionHunterDenovo-v0.9.0-linux_x86_64.tar.gz
 
