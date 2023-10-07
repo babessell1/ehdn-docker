@@ -1,5 +1,17 @@
 #!/bin/bash
 
+extract_subject_name() {
+    # get sample name from cram/bam filename
+    local string="$1"
+    local delimiter="_vcpa"
+    local subject_name=""
+
+    # Use the delimiter "_vcpa" to split the string and extract the subject name
+    subject_name="${string%%$delimiter*}"
+
+    echo "$subject_name"
+}
+
 # Function to clean up files associated with a CRAM
 cleanup() {
     local cram="$1"
@@ -8,6 +20,7 @@ cleanup() {
     # Remove CRAM files and associated output
     rm -f "output/${bname}*"
 }
+
 
 process_file() {
     local cram="$1"
@@ -56,7 +69,6 @@ process_file() {
         fi
     fi
 }
-}
 
 # command-line (cwl file) arguments
 cram1="$1"
@@ -72,6 +84,9 @@ cp "${ro_faidx_dir}/${bname_fa}.fa.fai" "${ro_fa_dir}/${bname_fa}.fa.fai"
 # out = dir to export to
 mkdir -p output
 mkdir -p out
+
+task1_status=0
+task2_status=0
 
 # Run the script in parallel for both cram1 and cram2
 (
