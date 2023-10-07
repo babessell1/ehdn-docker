@@ -2,15 +2,14 @@
 
 extract_subject_name() {
     # get sample name from cram/bam filename
-    local string=$1
-    local pattern="([A-Za-z-]+[A-Za-z0-9-]+-[A-Za-z-]+-[A-Za-z0-9]+)"
-    local match=""
+    local string="$1"
+    local delimiter="_vcpa"
+    local subject_name=""
 
-    if [[ $string =~ $pattern ]]; then
-        match="${BASH_REMATCH[1]}"
-    fi
+    # Use the delimiter "_vcpa" to split the string and extract the subject name
+    subject_name="${string%%$delimiter*}"
 
-    echo "$match"
+    echo "$subject_name"
 }
 
 process_file() {
