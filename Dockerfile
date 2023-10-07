@@ -27,6 +27,8 @@ RUN tar -xvzf ExpansionHunterDenovo-v0.9.0-linux_x86_64.tar.gz
 RUN chmod -R u+rwx,g+rwx,o+rwx ExpansionHunterDenovo-v0.9.0-linux_x86_64
 RUN git clone https://github.com/rashidalabri/ExpansionHunterDenovo-LRDN.git
 
+ENV PATH="$PATH:/usr/local/bin/ExpansionHunterDenovo-LRDN"
+
 # Remove hash lines and trailing slashes from requirements.txt
 RUN sed -i '/--hash=.*$/d; s/\\$//' ExpansionHunterDenovo-LRDN/requirements.txt
 
