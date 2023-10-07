@@ -34,12 +34,28 @@ process_file() {
 
     # If the process fails, set the failed CRAM variable
     if [ $? -ne 0 ]; then
-        failed_cram="$cram"
         # Trigger the cleanup function here to ensure it has a valid failed_cram value
-        cleanup "$failed_cram"
-        # set $? to 1 to indicate that the process failed without exiting the script
-        return 1
+        cleanup "$cram"
+        # set task_status to failed depending on which task failed
+        if [ "$cram" == "$cram1" ]; then
+            task1_status=1
+        elif [ "$cram" == "$cram2" ]; then
+            task2_status=1
+        fi
     fi
+
+    # extra double check to make sure file exists
+    if [ ! -f "output/"$bname".locus.tsv" ] 
+        # Trigger the cleanup function here to ensure it has a valid failed_cram value
+        cleanup "$cram"
+        # set task_status to failed depending on which task failed
+        if [ "$cram" == "$cram1" ]; then
+            task1_status=1
+        elif [ "$cram" == "$cram2" ]; then
+            task2_status=1
+        fi
+    fi
+}
 }
 
 # command-line (cwl file) arguments
