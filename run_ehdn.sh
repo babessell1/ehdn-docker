@@ -37,7 +37,7 @@ process_file() {
         --max-irr-mapq 40
 
     # python ehdn_lrdn.py case_sample1.bam case_sample1 ehdn_output.tsv case_sample1.str_profile.json lrdn_output_dir/
-    python ehdn_lrdn.py "$cram" "$bname" output/"$bname".tsv output/"$bname".str_profile.json output/
+    python3 ehdn_lrdn.py "$cram" "$bname" output/"$bname".tsv output/"$bname".str_profile.json output/
 }
 
 # command-line (cwl file) arguments
