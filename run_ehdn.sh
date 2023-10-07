@@ -30,7 +30,7 @@ process_file() {
         --max-irr-mapq 40
 
     # python ehdn_lrdn.py case_sample1.bam case_sample1 ehdn_output.tsv case_sample1.str_profile.json lrdn_output_dir/
-    python3 /usr/local/bin/ExpansionHunterDenovo-LRDN/ehdn_lrdn.py "$cram" "$bname" output/"$bname".tsv output/"$bname".str_profile.json output/
+    python3 /usr/local/bin/ExpansionHunterDenovo-LRDN/ehdn_lrdn.py "$cram" "$bname" output/"$bname".locus.tsv output/"$bname".str_profile.json output/
 
     # If the process fails, set the failed CRAM variable
     if [ $? -ne 0 ]; then
@@ -60,11 +60,9 @@ mkdir -p out
 # Run the script in parallel for both cram1 and cram2
 (
     process_file "$cram1" "$fasta"
-    task1_status=$?  # Store the exit status of task1
 ) &
 (
     process_file "$cram2" "$fasta"
-    task2_status=$?  # Store the exit status of task2
 ) &
 
 
