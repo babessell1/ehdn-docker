@@ -12,6 +12,7 @@ extract_subject_name() {
     echo "$subject_name"
 }
 
+
 # Function to clean up files associated with a CRAM
 cleanup() {
     local cram="$1"
@@ -31,6 +32,9 @@ process_file() {
 
     # read only input directories cram/bam, index
     local ro_cram_dir=$(dirname "$cram")
+
+    # Write the success code to a temporary file
+    echo "0" > "exitcodes/${bname}-exitcode.txt"
 
     samtools index -@ 2 "$cram"
 
@@ -55,7 +59,18 @@ process_file() {
         cleanup "$cram"
         # set task_status to failed depending on which task failed
         # Write the fail exit code to a temporary file
-        echo "1" > "${bname}-exitcode.txt"
+        echo "failed 1: ${bname}"
+        echo "1" > "exitcodes/${bname}-exitcode.txt"
+    fi
+
+    # extra double check to make sure file exists
+    if [ ! -f "output/${bname}-genotype.txt" ]; then
+        # Trigger the cleanup function here to ensure it has a valid failed_cram value
+        cleanup "$cram"
+        # set task_status to failed depending on which task failed
+        echo "failed 2: ${bname}"
+        echo "1" > "exitcodes/${bname}-exitcode.txt"
+        
     fi
 }
 
@@ -73,6 +88,7 @@ cp "${ro_faidx_dir}/${bname_fa}.fa.fai" "${ro_fa_dir}/${bname_fa}.fa.fai"
 # out = dir to export to
 mkdir -p output
 mkdir -p out
+mkdir -p exitcodes
 
 name1=$(extract_subject_name "$(basename "$cram1" .cram)")
 name2=$(extract_subject_name "$(basename "$cram2" .cram)")
@@ -89,13 +105,23 @@ name2=$(extract_subject_name "$(basename "$cram2" .cram)")
 # Wait for all parallel processes to finish
 wait
 
+bname1=$(basename "$cram1" .cram)
+bname2=$(basename "$cram2" .cram)
+
+echo "bname1: ${bname1}"
+echo "bname2: ${bname2}"
+
+# debug echo exit codes
+echo $(cat "exitcodes/${bname1}-exitcode.txt")
+echo $(cat "exitcodes/${bname2}-exitcode.txt")
+
 # get exit codes to set status
 task1_status=$(cat "${name1}-exitcode.txt")
 task2_status=$(cat "${name2}-exitcode.txt")
 
 # remove exit code files
-rm -f "${name1}-exitcode.txt"
-rm -f "${name2}-exitcode.txt"
+# remove exit code files
+rm -f -r "exitcodes"
 
 # Check if either of the tasks were killed (exit code is non-zero)
 if [ "$task1_status" -ne 0 ] || [ "$task2_status" -ne 0 ]; then
