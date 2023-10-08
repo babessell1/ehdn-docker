@@ -58,7 +58,7 @@ process_file() {
     fi
 
     # extra double check to make sure file exists
-    if [ ! -f "output/"$bname".locus.tsv" ] 
+    if [ ! -f "output/"$bname".locus.tsv" ]; then
         # Trigger the cleanup function here to ensure it has a valid failed_cram value
         cleanup "$cram"
         # set task_status to failed depending on which task failed
