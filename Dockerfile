@@ -25,7 +25,7 @@ RUN wget https://github.com/Illumina/ExpansionHunterDenovo/releases/download/v0.
 
 RUN tar -xvzf ExpansionHunterDenovo-v0.9.0-linux_x86_64.tar.gz
 RUN chmod -R u+rwx,g+rwx,o+rwx ExpansionHunterDenovo-v0.9.0-linux_x86_64
-RUN git clone https://github.com/rashidalabri/ExpansionHunterDenovo-LRDN.git
+RUN git clone https://github.com/babessell1/ExpansionHunterDenovo-LRDN.git
 
 ENV PATH="$PATH:/usr/local/bin/ExpansionHunterDenovo-LRDN"
 
