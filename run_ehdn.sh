@@ -49,7 +49,8 @@ process_file() {
         --max-irr-mapq 40
 
     # python ehdn_lrdn.py case_sample1.bam case_sample1 ehdn_output.tsv case_sample1.str_profile.json lrdn_output_dir/
-    python3 /usr/local/bin/ExpansionHunterDenovo-LRDN/ehdn_lrdn.py "$cram" "$bname" output/"$bname".locus.tsv output/"$bname".str_profile.json output/
+    python3 /usr/local/bin/ExpansionHunterDenovo-LRDN/ehdn_lrdn.py "$cram" "$bname" output/"$bname".locus.tsv output/"$bname".str_profile.json output
+
 
     ####################################################################
 
@@ -64,7 +65,7 @@ process_file() {
     fi
 
     # extra double check to make sure file exists
-    if [ ! -f "output/${bname}-genotype.txt" ]; then
+    if [ ! -f "output/${bname}.pkl" ]; then
         # Trigger the cleanup function here to ensure it has a valid failed_cram value
         cleanup "$cram"
         # set task_status to failed depending on which task failed
