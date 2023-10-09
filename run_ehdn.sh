@@ -117,8 +117,8 @@ echo $(cat "exitcodes/${bname1}-exitcode.txt")
 echo $(cat "exitcodes/${bname2}-exitcode.txt")
 
 # get exit codes to set status
-task1_status=$(cat "${name1}-exitcode.txt")
-task2_status=$(cat "${name2}-exitcode.txt")
+task1_status=$(cat "exitcodes/${bname1}-exitcode.txt")
+task2_status=$(cat "exitcodes/${bname2}-exitcode.txt")
 
 # remove exit code files
 # remove exit code files
